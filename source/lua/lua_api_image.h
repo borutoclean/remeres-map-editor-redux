@@ -49,6 +49,14 @@ namespace LuaAPI {
 		static LuaImage loadFromFile(const std::string& path);
 		static LuaImage loadFromItemSprite(int itemId);
 		static LuaImage loadFromSprite(int spriteId);
+		// Compose a checkerboard-backed preview using actual item appearances.
+		// Each entry is (item id, x offset, y offset), anchored to its tile.
+		static LuaImage composeItemGrid(int width, int height, sol::table entries);
+		// Edge cost (0 = similar, 1 = dissimilar); -1 means insufficient data.
+		static double edgeCost(int leftOrTopItemId, int rightOrBottomItemId, const std::string &direction);
+		// Greedy cached-edge arrangement for a complete grid of server item IDs.
+		static sol::table autoArrange(sol::this_state ts, sol::table ids, int width, int height);
+
 
 		// Properties
 		int getWidth() const;
